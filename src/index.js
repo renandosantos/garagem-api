@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const { setupDatabase } = require('./config/database.js');
 const port = 3000
 
 app.use(
