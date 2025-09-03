@@ -16,6 +16,21 @@ app.get('/', (req, res) => {
 })
 
 
-app.listen(3000, ()=> {
-    console.log(`Servidor rodando na porta ${port}`)
-})
+// Função para controlar a inicialização
+const startServer = async () => {
+    try {
+    // 1. Garante que o banco e a tabela estão prontos
+    await setupDatabase();
+
+    // 2. SÓ DEPOIS, inicia o servidor
+    app.listen(port, () => {
+    console.log(`Servidor rodando na porta ${port}`);
+    });
+}  catch (error) {
+    // Se o setup do banco falhar, a aplicação vai parar aqui.
+    console.error('Falha ao iniciar o servidor:', error);
+    }
+};
+
+// Chama a função para iniciar tudo
+startServer();
